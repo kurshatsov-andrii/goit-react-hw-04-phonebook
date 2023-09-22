@@ -2,7 +2,6 @@ import { styled } from 'styled-components';
 
 export const ContactListStyled = styled('ul')({
   height: '200px',
-  // overflow: 'auto',
   marginTop: '20px',
   padding: '5px',
 });
