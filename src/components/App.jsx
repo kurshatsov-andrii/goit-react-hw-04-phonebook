@@ -5,7 +5,6 @@ import { ContactList } from './ContactList';
 import { nanoid } from 'nanoid';
 import { Report } from 'notiflix';
 import { Section } from './Section/Section.styled';
-import { EmptyEl } from './ContactList/ContactList.styled';
 
 export const App = () => {
   const [contacts, setContacts] = useState(
@@ -14,7 +13,7 @@ export const App = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+    localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
   const addContact = data => {
@@ -56,19 +55,21 @@ export const App = () => {
   const visibleContacts = getVisibleContacts();
 
   return (
-    <Section>
-      <h1>Phonebook</h1>
-      <FormAddContact addContact={addContact} />
-      <h2>Contacts</h2>
-      <Filter value={filter} onChange={changeFilter} />
-      {visibleContacts.length ? (
-        <ContactList
-          contacts={visibleContacts}
-          onDeleteContact={deleteContact}
-        />
-      ) : (
-        <EmptyEl>Not found</EmptyEl>
+    <div>
+      <Section>
+        <h1>Phonebook</h1>
+        <FormAddContact addContact={addContact} />
+      </Section>
+      {contacts.length >= 1 && (
+        <Section>
+          <h2>Contacts</h2>
+          <Filter name={filter} onChange={changeFilter} />
+          <ContactList
+            contacts={visibleContacts}
+            onDeleteContact={deleteContact}
+          />
+        </Section>
       )}
-    </Section>
+    </div>
   );
 };
