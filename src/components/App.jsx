@@ -18,7 +18,7 @@ export const App = () => {
 
   const addContact = data => {
     const identicalContactName = contacts.some(
-      ({ name }) => data.name === name
+      ({ name }) => data.name.toLowerCase() === name.toLowerCase()
     );
     if (identicalContactName) {
       return Report.warning(
@@ -31,7 +31,7 @@ export const App = () => {
       ...data,
       id: nanoid(),
     };
-    setContacts([newContact, ...contacts]);
+    setContacts(prevContacts => [newContact, ...prevContacts]);    
   };
 
   const deleteContact = contactId => {
